@@ -20,7 +20,7 @@ import {z} from "zod"
 import { authFormSchema } from '@/lib/utils'
 import CustomInput from './CustomInput'
 import { Loader2 } from 'lucide-react'
-import { signUp } from '@/lib/actions/user.actions'
+import { signIn, signUp } from '@/lib/actions/user.actions'
 import { useRouter } from 'next/navigation'
 
 
@@ -41,15 +41,15 @@ const AuthForm = ({type}: {type: string}) => {
         try {
             //sign up with appwrite and create plaid token
             if (type === 'sign-up') {
-                // const newUser = await signUp(data);
-                // setUser(newUser)
+                const newUser = await signUp(data);
+                setUser(newUser)
             }
             if (type === 'sign-in') {
-                // const response = await signIn({
-                //     email: data.email,
-                //     password: data.password,
-                // })
-                // if (response) router.push('/')
+                const response = await signIn({
+                    email: data.email,
+                    password: data.password,
+                })
+                if (response) router.push('/')
             }
 
         } catch (error) {
